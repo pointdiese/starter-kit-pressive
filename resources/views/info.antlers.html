@@ -1,0 +1,30 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{ partial:page-header }}
+
+    {{# Optional featured image with credit #}}
+    {{ if featured_image }}
+    <div class="max-w-3xl mx-auto mb-8">
+        <div class="overflow-hidden bg-black">
+            {{ glide :src="featured_image" w="1280" h="500" q="100" fit="crop" }}
+                <img src="{{ url }}" width="{{ width }}" height="{{ height }}" alt="{{ alt }}" class="w-full">
+            {{ /glide }}
+        </div>
+        {{ if image_credit }}
+            <div class="flex flex-row items-center gap-1 py-2 font-mono text-xs text-zinc-400">
+                <span>Illustration Credit</span>
+                <div class="block h-3 w-[1px] bg-zinc-300"></div>
+                <span>{{ if image_credit_url }}<a href="{{ image_credit_url }}" target="_blank" rel="noopener">{{ image_credit }}</a>{{ else }}{{ image_credit }}{{ /if }}</span>
+            </div>
+        {{ /if }}
+    </div>
+    {{ /if }}
+
+    {{# Page content — serif body text, prose width for readability #}}
+    <div class="max-w-prose mx-auto w-full py-5">
+        <div class="font-serif text-2xl font-medium [&>p]:pb-5 prose prose-lg max-w-none">{{ content }}</div>
+    </div>
+
+</div>

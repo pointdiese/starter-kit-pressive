@@ -1,0 +1,21 @@
+tree:
+  -
+    id: 3ea35a32-d6cc-4d0e-93e4-2a67a895d2ff
+    title: DISCLAIMER
+    url: /disclaimer
+  -
+    id: 968f7543-7ffa-4d8c-8a8a-567fabacf739
+    title: PRIVACY
+    url: /privacy-policy
+  -
+    id: 49fbbcbd-fc3f-4dc6-91be-79d6ecdec238
+    title: ABOUT
+    url: /about
+  -
+    id: e5f6a7b8-c9d0-41e2-b3f4-5a6b7c8d9e0f
+    title: CONTACT
+    url: /contact
+  -
+    id: 8a619934-02bb-41ab-bf85-03d73abc5df9
+    title: AUTHORS
+    url: /authors

@@ -1,0 +1,168 @@
+title: Article
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            import: featured_image
+          -
+            handle: content_blocks
+            field:
+              type: replicator
+              display: Content
+              default:
+                -
+                  type: text_block
+                  content: ''
+                  enabled: true
+              sets:
+                content:
+                  display: Content
+                  sets:
+                    text_block:
+                      display: Text
+                      icon: text-formatting-bold
+                      fields:
+                        -
+                          handle: content
+                          field:
+                            type: markdown
+                            display: Content
+                            buttons:
+                              - bold
+                              - italic
+                              - unorderedlist
+                              - orderedlist
+                              - quote
+                              - link
+                              - image
+                              - table
+                              - strikethrough
+                              - asset
+                              - code
+                              - codeblock
+                            automatic_line_breaks: false
+                    image_block:
+                      display: Image
+                      icon: text-formatting-image-top
+                      fields:
+                        -
+                          handle: image
+                          field:
+                            type: assets
+                            display: Image
+                            container: assets
+                        -
+                          handle: subtitle
+                          field:
+                            type: text
+                            display: Caption
+                        -
+                          handle: image_credit
+                          field:
+                            type: text
+                            display: 'Image Credit'
+                        -
+                          handle: image_credit_url
+                          field:
+                            type: text
+                            display: 'Image Credit URL'
+                            input_type: url
+                        -
+                          handle: link_url
+                          field:
+                            type: text
+                            display: 'Link URL'
+                            instructions: 'Optional. Makes the image clickable.'
+                            input_type: url
+                    ad_block:
+                      display: Ad
+                      icon: monetization-dollar-bill
+                      fields:
+                        -
+                          handle: ad
+                          field:
+                            type: entries
+                            display: Ad
+                            instructions: 'Leave empty to show the next active ad automatically.'
+                            collections:
+                              - ads
+                            max_items: 1
+                            mode: select
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: categories
+            field:
+              type: terms
+              display: Categories
+              taxonomies:
+                - categories
+              mode: select
+              max_items: 1
+              default:
+                - news
+          -
+            handle: article_city
+            field:
+              type: text
+              display: City
+          -
+            handle: dek
+            field:
+              type: text
+              display: Dek
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: 'Meta Title'
+              instructions: 'Override the page title for SEO. Leave blank to use the article title.'
+          -
+            handle: meta_description
+            field:
+              type: text
+              display: 'Meta Description'
+              instructions: 'Short description for SEO and social sharing'
+          -
+            handle: robot_index
+            field:
+              type: toggle
+              display: 'Index this article'
+              instructions: 'Uncheck to add noindex/nofollow and exclude from sitemap.'
+              default: true
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: date
+            field:
+              type: date
+              display: Date
+              default: now
+              validate:
+                - required
+          -
+            handle: author
+            field:
+              type: entries
+              display: Author
+              collections:
+                - authors
+              max_items: 1
+              mode: select

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    {{# Articles — excluded if robot_index is false on the entry #}}
+    {{ collection:articles sort="date:desc" :filter="robot_index:true" }}
+    <url>
+        <loc>{{ permalink }}</loc>
+        <lastmod>{{ last_modified format="Y-m-d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    {{ /collection:articles }}
+
+    {{# Pages — excluded if robot_index is false on the entry #}}
+    {{ collection:pages :filter="robot_index:true" }}
+    <url>
+        <loc>{{ permalink }}</loc>
+        <lastmod>{{ last_modified format="Y-m-d" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    {{ /collection:pages }}
+
+    {{# Categories — excluded if robot_index is explicitly false on the taxonomy term #}}
+    {{ taxonomy:categories }}
+    {{ if robot_index !== false }}
+    <url>
+        <loc>{{ config:app.url }}/{{ slug }}</loc>
+        <lastmod>{{ last_modified format="Y-m-d" }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    {{ /if }}
+    {{ /taxonomy:categories }}
+
+    {{# Authors index page (static route) #}}
+    <url>
+        <loc>{{ config:app.url }}/authors</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    {{# Individual author pages #}}
+    {{ collection:authors sort="title:asc" }}
+    <url>
+        <loc>{{ permalink }}</loc>
+        <lastmod>{{ last_modified format="Y-m-d" }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    {{ /collection:authors }}
+
+</urlset>

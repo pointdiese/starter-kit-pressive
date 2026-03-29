@@ -1,0 +1,24 @@
+{
+    "name": "pointdiese/starter-kit-pressive",
+    "extra": {
+        "statamic": {
+            "name": "Pressive",
+            "description": "A complete editorial system for news and magazine publications. Ships with ads management, full-text search, RSS feeds, and SEO baked in."
+        },
+        "laravel": {
+            "providers": [
+                "Pointdiese\\Pressive\\ServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Pointdiese\\Pressive\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    }
+}

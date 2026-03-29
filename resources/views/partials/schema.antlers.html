@@ -1,0 +1,32 @@
+{{# NewsArticle JSON-LD schema — only injected on article pages (collection = "articles") #}}
+{{# To extend with individual author schema, update the "author" block below #}}
+{{ if collection == "articles" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "headline": "{{ title | strip_tags('sup') | entities }}",
+  "description": "{{ meta_description | strip_tags | entities ?? dek | strip_tags | entities }}",
+  {{ if featured_image }}
+  "image": "{{ glide :src='featured_image' width='1200' height='630' fit='crop' absolute='true' }}",
+  {{ else }}
+  "image": "{{ config:app.url }}/assets/{{ site_settings:logo }}",
+  {{ /if }}
+  "datePublished": "{{ date format='Y-m-d\TH:i:sP' }}",
+  "dateModified": "{{ last_modified format='Y-m-d\TH:i:sP' }}",
+  "author": {{ author }}{ "@type": "Person", "name": "{{ title }}", "url": "{{ permalink }}" }{{ /author }}{{ if !author }}{ "@type": "Organization", "name": "{{ site:name }}" }{{ /if }},
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site:name }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ config:app.url }}/assets/{{ site_settings:logo }}"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ permalink }}"
+  }
+}
+</script>
+{{ /if }}

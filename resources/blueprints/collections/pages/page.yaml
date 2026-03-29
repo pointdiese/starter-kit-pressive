@@ -1,0 +1,76 @@
+title: Page
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              validate:
+                - required
+          -
+            import: featured_image
+          -
+            handle: content
+            field:
+              type: markdown
+              display: Content
+              localizable: true
+          -
+            handle: author
+            field:
+              type: users
+              display: Author
+              default: current
+              localizable: true
+              max_items: 1
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: template
+            field:
+              type: template
+              display: Template
+              localizable: true
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: 'Meta Title'
+              instructions: 'Override the page title for SEO. Leave blank to use the page title.'
+          -
+            handle: meta_description
+            field:
+              type: text
+              display: 'Meta Description'
+              instructions: 'Short description for SEO and social sharing'
+          -
+            handle: robot_index
+            field:
+              type: toggle
+              display: 'Index this page'
+              instructions: 'Uncheck to add noindex/nofollow and exclude from sitemap.'
+              default: true
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+          -
+            handle: parent
+            field:
+              type: entries
+              display: Parent
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true

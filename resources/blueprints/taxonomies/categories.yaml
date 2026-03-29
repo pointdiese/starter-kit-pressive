@@ -1,0 +1,15 @@
+title: Category
+fields:
+  -
+    handle: nav_order
+    field:
+      type: integer
+      display: 'Nav Order'
+      instructions: 'Controls the order of this category in the navigation. Lower numbers appear first. Each number should be unique — duplicates will be sorted alphabetically. Leave empty to exclude from nav.'
+  -
+    handle: robot_index
+    field:
+      type: toggle
+      display: 'Index this category'
+      instructions: 'Uncheck to add noindex/nofollow and exclude from sitemap.'
+      default: true

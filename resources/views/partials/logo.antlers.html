@@ -1,0 +1,13 @@
+{{# Desktop-only masthead logo — hidden on mobile (the mobile nav handles its own logo display) #}}
+{{# Logo max-width and masthead rules are configured in site_settings globals #}}
+<div class="hidden sm:block">
+    <div class="flex flex-col items-center pt-5 sm:pb-5 sm:pt-6">
+        <div class="flex flex-row items-center gap-4">
+            {{ if {site_settings:show_masthead_rules} }}<hr class="border-black border-2" style="width: {{ site_settings:logo_max_width / 2 }}px" />{{ /if }}
+            <div>
+                <a href="/"><img src="{{ site_settings:logo }}" alt="{{ site:name }}" style="max-width: {{ site_settings:logo_max_width ?? 400 }}px" /></a>
+            </div>
+            {{ if {site_settings:show_masthead_rules} }}<hr class="border-black border-2" style="width: {{ site_settings:logo_max_width / 2 }}px" />{{ /if }}
+        </div>
+    </div>
+</div>

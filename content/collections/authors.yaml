@@ -1,0 +1,15 @@
+title: Authors
+icon: users
+template: authors/show
+layout: layout
+revisions: false
+route: '/authors/{slug}'
+sort_dir: asc
+date_behavior:
+  past: null
+  future: null
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true

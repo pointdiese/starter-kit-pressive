@@ -1,0 +1,76 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{ partial:page-header title="Search" }}
+
+    {{# Search form #}}
+    <div class="max-w-3xl mx-auto mb-8">
+        <form action="/search" method="GET" class="flex items-center gap-3 border-b border-black pb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-400 shrink-0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input
+                type="search"
+                name="q"
+                value="{{ get:q }}"
+                placeholder="Search articles…"
+                autofocus
+                class="w-full font-mono text-sm bg-transparent py-1.5 outline-none placeholder:text-zinc-400"
+            />
+            <button type="submit" class="font-mono text-xs uppercase tracking-widest shrink-0 hover-accent transition-colors duration-200">Go</button>
+        </form>
+    </div>
+
+    {{# Only run search query if a ?q= param is present #}}
+    {{ if get:q }}
+
+        {{# Search index configured in config/statamic/search.php — searches articles by title, dek, article_city #}}
+        {{ search:results as="items" }}
+
+            {{# No results state #}}
+            {{ if no_results }}
+                <div class="max-w-3xl mx-auto">
+                    <p class="font-mono text-sm text-zinc-400">No results for "<strong>{{ get:q }}</strong>".</p>
+                </div>
+            {{# Results list — same card layout as categories and authors pages #}}
+            {{ else }}
+                <div class="max-w-3xl mx-auto">
+                    <p class="font-mono text-xs text-zinc-400 mb-6">{{ total_results }} result{{ if total_results != 1 }}s{{ /if }} for "<strong>{{ get:q }}</strong>"</p>
+
+                    {{ items }}
+                        <article class="flex flex-row items-start gap-5 py-5">
+                            {{ if featured_image }}
+                            <div class="w-60 shrink-0 overflow-hidden bg-black">
+                                <a href="{{ url }}" class="block">
+                                    {{ glide :src="featured_image" quality="80" width="280" height="180" fit="crop" }}
+                                        <img
+                                            class="w-72 h-44 object-cover transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                            loading="lazy"
+                                            src="{{ url }}"
+                                            alt="{{ title }}">
+                                    {{ /glide }}
+                                </a>
+                            </div>
+                            {{ /if }}
+                            <a href="{{ url }}" class="flex flex-col justify-start gap-2 w-3/5">
+                                <div class="font-mono text-xs text-zinc-500">
+                                    <span>{{ date iso_format="MMMM D, YYYY" }}</span>
+                                </div>
+                                <h2 class="font-serif text-2xl lg:text-3xl font-bold leading-tight transition-colors duration-200">{{ title }}</h2>
+                                {{ if dek }}
+                                    <p class="font-serif text-base italic font-semibold text-zinc-600 leading-snug">{{ dek }}</p>
+                                {{ /if }}
+                            </a>
+                        </article>
+                        {{ if !last }}
+                            <hr class="w-full border-gray-100 border-1" />
+                        {{ /if }}
+                    {{ /items }}
+
+                </div>
+            {{ /if }}
+
+        {{ /search:results }}
+
+    {{ /if }}
+
+</div>

@@ -1,0 +1,28 @@
+{{#
+    Renders one ad from the Ads collection.
+    - Pass `offset` to cycle through ads (e.g. offset="1" for a second slot).
+    - Only shows ads where active = true AND current date is within start_date/end_date range.
+    - If no URL is set on the ad, the image is not clickable.
+    - Recommended image size: 970×250px.
+#}}
+{{ collection:ads filter="active:true" limit="1" :offset="offset ?? 0" }}
+    {{# Date range check — start_date and end_date are optional; omitting either means open-ended #}}
+    {{ if (!start_date || start_date <= now) && (!end_date || end_date >= now) }}
+    <div class="py-2">
+        <div class="overflow-hidden flex justify-center">
+            {{ if link }}<a href="{{ link }}" target="_blank" rel="noopener">{{ /if }}
+                {{ glide :src="image" w="970" h="250" fit="crop" q="95" }}
+                    <img
+                        loading="lazy"
+                        class="transform transition-transform duration-500 ease-in-out hover:scale-105"
+                        src="{{ url }}"
+                        width="970"
+                        height="250"
+                        alt="{{ title }}" />
+                {{ /glide }}
+            {{ if link }}</a>{{ /if }}
+        </div>
+    </div>
+    <hr class="mx-auto w-full border-gray-100 mb-2 border-1" />
+    {{ /if }}
+{{ /collection:ads }}

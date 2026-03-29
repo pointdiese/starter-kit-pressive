@@ -1,0 +1,45 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{# Page header #}}
+    {{ partial:page-header title="Authors" }}
+
+    {{# Authors list — sorted alphabetically; photo rendered at 2x for retina (160px glide, 80px display) #}}
+    <div class="max-w-3xl mx-auto">
+        {{ collection:authors sort="title:asc" as="authors" }}
+            {{ authors }}
+                <article class="flex flex-row items-start gap-5 py-5">
+                    {{# If no photo is set, fall back to the author's initial in a circle placeholder #}}
+                    {{ if photo }}
+                    <div class="w-20 h-20 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                        <a href="{{ url }}">
+                            {{ glide :src="photo" width="160" height="160" fit="crop" quality="90" dpr="2" }}
+                                <img
+                                    class="w-20 h-20 object-cover transition-transform duration-500 ease-in-out hover:scale-110"
+                                    loading="lazy"
+                                    src="{{ url }}"
+                                    alt="{{ title }}">
+                            {{ /glide }}
+                        </a>
+                    </div>
+                    {{ else }}
+                    <div class="w-20 h-20 shrink-0 overflow-hidden rounded-full bg-zinc-100 flex items-center justify-center">
+                        <span class="font-display text-2xl text-zinc-400 uppercase">{{ title | truncate:1:''}}</span>
+                    </div>
+                    {{ /if }}
+                    <div class="flex flex-col justify-center gap-1">
+                        <a href="{{ url }}" class="font-serif text-2xl font-bold leading-tight hover:text-accent transition-colors">{{ title }}</a>
+                        {{ if bio }}
+                            <p class="font-serif text-base italic text-zinc-500 leading-snug line-clamp-2 whitespace-pre-line">{{ bio }}</p>
+                        {{ /if }}
+                    </div>
+                </article>
+                {{ if !last }}
+                    <hr class="w-full border-gray-100 border-1" />
+                {{ /if }}
+            {{ /authors }}
+        {{ /collection:authors }}
+    </div>
+
+</div>

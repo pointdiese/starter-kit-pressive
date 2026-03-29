@@ -1,0 +1,191 @@
+title: 'Site Settings'
+fields:
+  -
+    handle: logo
+    field:
+      type: assets
+      display: Logo
+      instructions: 'Site logo shown in the header and footer.'
+      container: assets
+      max_files: 1
+  -
+    handle: logo_max_width
+    field:
+      type: integer
+      display: 'Logo Max Width'
+      instructions: 'Maximum width of the logo in pixels.'
+      default: 400
+  -
+    handle: accent_color
+    field:
+      type: color
+      display: 'Accent Color'
+      instructions: 'Color used for cover story labels and link hover states.'
+      default: '#ef4444'
+  -
+    handle: show_masthead_rules
+    field:
+      type: toggle
+      display: 'Show Masthead Rules'
+      instructions: 'Show the horizontal rules on each side of the logo.'
+      default: true
+  -
+    handle: site_description
+    field:
+      type: text
+      display: 'Site Description'
+      instructions: 'Default meta description used when no page-specific description is set.'
+      character_limit: 160
+  -
+    handle: show_progress_bar
+    field:
+      type: toggle
+      display: 'Show Progress Bar'
+      instructions: 'Show the reading progress bar on article pages.'
+      default: true
+  -
+    handle: progress_bar_color
+    field:
+      type: color
+      display: 'Progress Bar Color'
+      instructions: 'Color of the reading progress bar shown on article pages.'
+      default: '#85bb65'
+  -
+    handle: sharing
+    field:
+      type: group
+      display: 'Share Buttons'
+      instructions: 'Control which social share buttons are visible on articles.'
+      fields:
+        -
+          handle: share_facebook
+          field:
+            type: toggle
+            display: Facebook
+            default: true
+            width: 25
+        -
+          handle: share_x
+          field:
+            type: toggle
+            display: 'X (Twitter)'
+            default: true
+            width: 25
+        -
+          handle: share_bluesky
+          field:
+            type: toggle
+            display: Bluesky
+            default: true
+            width: 25
+        -
+          handle: share_threads
+          field:
+            type: toggle
+            display: Threads
+            default: true
+            width: 25
+        -
+          handle: share_whatsapp
+          field:
+            type: toggle
+            display: WhatsApp
+            default: true
+            width: 25
+        -
+          handle: share_linkedin
+          field:
+            type: toggle
+            display: LinkedIn
+            default: true
+            width: 25
+  -
+    handle: show_marquee
+    field:
+      type: toggle
+      display: 'Show Marquee'
+      instructions: 'Show the scrolling headlines banner at the top of the page.'
+      default: true
+  -
+    handle: marquee_items
+    field:
+      type: grid
+      display: 'Marquee Headlines'
+      instructions: 'Scrolling headlines in the top banner. Each item can link to an article or a custom URL.'
+      add_row: 'Add headline'
+      fields:
+        -
+          handle: text
+          field:
+            type: text
+            display: Headline
+            required: true
+        -
+          handle: link
+          field:
+            type: link
+            display: Link
+            instructions: 'Select an article or enter a custom URL.'
+            collections:
+              - articles
+  -
+    handle: footer_tagline
+    field:
+      type: text
+      display: 'Footer Tagline'
+      instructions: 'Short description shown under the logo in the footer.'
+  -
+    handle: social_links
+    field:
+      type: group
+      display: 'Social Links'
+      instructions: 'Leave empty to hide a social icon.'
+      fields:
+        -
+          handle: x_url
+          field:
+            type: text
+            display: 'X (Twitter)'
+            input_type: url
+            width: 50
+        -
+          handle: bluesky_url
+          field:
+            type: text
+            display: Bluesky
+            input_type: url
+            width: 50
+        -
+          handle: facebook_url
+          field:
+            type: text
+            display: Facebook
+            input_type: url
+            width: 50
+        -
+          handle: instagram_url
+          field:
+            type: text
+            display: Instagram
+            input_type: url
+            width: 50
+        -
+          handle: youtube_url
+          field:
+            type: text
+            display: YouTube
+            input_type: url
+            width: 50
+        -
+          handle: threads_url
+          field:
+            type: text
+            display: Threads
+            input_type: url
+            width: 50
+  -
+    handle: copyright_text
+    field:
+      type: text
+      display: 'Copyright Text'
+      instructions: 'Optional. Overrides the default "© [year] [site name]".'

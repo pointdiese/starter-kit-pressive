@@ -1,0 +1,246 @@
+{{ partial:logo }}
+
+<h1 class="sr-only">{{ site:name }}{{ if site_settings:site_description }} — {{ site_settings:site_description }}{{ /if }}</h1>
+<div class="px-0 lg:px-2">
+    {{ if !get:page }}
+
+        {{# Check if we have enough articles for the sidebar layout (6+) #}}
+        {{ collection:articles limit="1" offset="5" as="has_sidebar" }}
+
+        {{ if has_sidebar }}
+
+            {{# Sidebar layout — 6+ articles #}}
+            <div class="flex flex-col gap-2 lg:flex-row">
+
+                {{# Featured article #}}
+                <div class="lg:size-2/3">
+                    {{ collection:articles limit="1" as="featured" }}
+                    {{ featured }}
+                        <div class="flex flex-col pr-0 md:pr-1 lg:pr-2">
+                            <div class="overflow-hidden bg-black">
+                                <a href="{{ url }}">
+                                    {{ glide :src="featured_image" quality="80" height="620" }}
+                                        <img
+                                            class="transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                            loading="lazy"
+                                            src="{{ url }}"
+                                            width="{{ width }}"
+                                            height="{{ height }}"
+                                            alt="{{ alt }}">
+                                    {{ /glide }}
+                                </a>
+                            </div>
+                            <div class="flex flex-col gap-1 py-4 my-auto text-black bg-white">
+                                <a class="flex flex-col gap-2" href="{{ url }}">
+                                    <span class="font-mono text-xs text-accent">COVER STORY</span>
+                                    <h2 class="font-serif text-4xl lg:text-5xl font-bold leading-tight">{{ title }}</h2>
+                                    {{ if dek }}
+                                        <p class="w-5/6 font-serif text-xl italic font-bold tracking-wide text-zinc-600">{{ dek }}</p>
+                                    {{ /if }}
+                                </a>
+                            </div>
+                        </div>
+                    {{ /featured }}
+                    {{ /collection:articles }}
+                </div>
+
+                {{# Sidebar articles #}}
+                <div class="lg:size-1/3">
+                    <div class="flex flex-col gap-2">
+                        <span class="font-mono text-xs text-center text-bold text-zinc-700">NOT COVER STORIES</span>
+                        <hr class="w-full mx-auto border-gray-100 border-1" />
+                        {{ collection:articles limit="5" offset="1" as="sidebar" }}
+                            {{ sidebar }}
+                            <div class="flex flex-row justify-between">
+                                <div class="flex flex-col size-8/9">
+                                    <span class="text-xl font-display">
+                                        {{ categories }}
+                                            <a href="/{{ slug }}"><span class="uppercase">{{ title }}</span></a>
+                                        {{ /categories }}
+                                    </span>
+                                    <a href="{{ url }}"><span class="font-serif text-xl font-bold leading-none">{{ title }}</span></a>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <a href="{{ url }}">
+                                        {{ glide :src="featured_image" width="72" height="72" }}
+                                            <img
+                                                class="transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                                loading="lazy"
+                                                src="{{ url }}"
+                                                width="{{ width }}"
+                                                height="{{ height }}"
+                                                alt="{{ alt }}">
+                                        {{ /glide }}
+                                    </a>
+                                </div>
+                            </div>
+                            {{ if count < 5 }}
+                                <hr class="w-full mx-auto border-gray-100 border-1" />
+                            {{ /if }}
+                            {{ /sidebar }}
+                        {{ /collection:articles }}
+                    </div>
+                </div>
+            </div>
+
+        {{ else }}
+
+            {{# Full-width layout — 1 to 5 articles #}}
+            {{ collection:articles limit="1" as="featured" }}
+            {{ featured }}
+                <div class="mb-6">
+                    <div class="overflow-hidden bg-black">
+                        <a href="{{ url }}">
+                            {{ glide :src="featured_image" quality="80" height="620" }}
+                                <img
+                                    class="transition-transform duration-500 ease-in-out transform hover:scale-120 w-full"
+                                    loading="lazy"
+                                    src="{{ url }}"
+                                    width="{{ width }}"
+                                    height="{{ height }}"
+                                    alt="{{ alt }}">
+                            {{ /glide }}
+                        </a>
+                    </div>
+                    <div class="flex flex-col gap-1 py-4">
+                        <a class="flex flex-col gap-2" href="{{ url }}">
+                            <span class="font-mono text-xs text-accent">COVER STORY</span>
+                            <h2 class="font-serif text-5xl font-bold leading-tight">{{ title }}</h2>
+                            {{ if dek }}
+                                <p class="font-serif text-2xl italic font-semibold tracking-wide text-zinc-600">{{ dek }}</p>
+                            {{ /if }}
+                        </a>
+                    </div>
+                </div>
+            {{ /featured }}
+            {{ /collection:articles }}
+
+            {{ collection:articles limit="1" offset="1" as="has_more" }}
+            {{ if has_more }}
+                <hr class="w-full border-gray-200 border-1 mb-6" />
+                <div class="max-w-3xl mx-auto">
+                    {{ collection:articles offset="1" as="articles" }}
+                        {{ articles }}
+                            <article class="flex flex-row items-start gap-5 py-5">
+                                <div class="w-60 shrink-0 overflow-hidden bg-black">
+                                    <a href="{{ url }}" class="block">
+                                        {{ glide :src="featured_image" quality="80" width="280" height="180" fit="crop" }}
+                                            <img
+                                                class="w-72 h-44 object-cover transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                                loading="lazy"
+                                                src="{{ url }}"
+                                                alt="{{ alt }}">
+                                        {{ /glide }}
+                                    </a>
+                                </div>
+                                <a href="{{ url }}" class="flex flex-col justify-start gap-2 w-3/5">
+                                    <div class="font-mono text-xs text-zinc-500">
+                                        <span>{{ date iso_format="MMMM D, YYYY" }}</span>
+                                    </div>
+                                    <h2 class="font-serif text-2xl lg:text-3xl font-bold leading-tight transition-colors duration-200">{{ title }}</h2>
+                                    {{ if dek }}
+                                        <p class="font-serif text-base italic font-semibold text-zinc-600 leading-snug">{{ dek }}</p>
+                                    {{ /if }}
+                                </a>
+                            </article>
+                            {{ if !last }}
+                                <hr class="w-full border-gray-100 border-1" />
+                            {{ /if }}
+                        {{ /articles }}
+                    {{ /collection:articles }}
+                </div>
+            {{ /if }}
+            {{ /collection:articles }}
+
+        {{ /if }}
+
+        {{ /collection:articles }}
+
+        {{ collection:ads filter="active:true" limit="1" offset="0" as="has_ads" }}
+            {{ has_ads }}
+                {{ if (!start_date || start_date <= now) && (!end_date || end_date >= now) }}
+                    <hr class="w-full mx-auto mt-2 mb-2 border-gray-100 border-1" />
+                    <div class="mx-auto text-center">
+                        <span class="w-full font-mono text-xs text-center text-bold text-zinc-700">SOME ADS</span>
+                    </div>
+                    {{ partial:ads offset="0" }}
+                {{ /if }}
+            {{ /has_ads }}
+        {{ /collection:ads }}
+
+    {{ /if }}
+
+    {{ collection:articles offset="6" paginate="8" as="more" }}
+    {{ if more }}
+        <div class="mx-auto mb-2 text-center">
+            <span class="w-full font-mono text-xs text-center text-bold text-zinc-700">MORE NEWS</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {{ more }}
+                <div class="flex flex-col">
+                    <a class="flex flex-col gap-2" href="{{ url }}">
+                        <div class="overflow-hidden aspect-[4/3]">
+                            {{ glide :src="featured_image" quality="80" width="600" height="450" fit="crop_focal" }}
+                                <img
+                                    class="object-cover w-full h-full transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                    loading="lazy"
+                                    src="{{ url }}"
+                                    width="{{ width }}"
+                                    height="{{ height }}"
+                                    alt="{{ alt }}">
+                            {{ /glide }}
+                        </div>
+                        <h2 class="font-serif text-xl font-bold leading-none">{{ title }}</h2>
+                        {{ if dek }}
+                            <p class="w-5/6 font-serif text-base italic font-bold tracking-wide text-zinc-600">{{ dek }}</p>
+                        {{ /if }}
+                    </a>
+                </div>
+            {{ /more }}
+        </div>
+    {{ /if }}
+    {{ paginate }}
+        {{ if total_pages > 1 }}
+            <nav class="flex items-center justify-between py-8 font-mono text-sm">
+                {{ if prev_page }}
+                    <a href="{{ prev_page }}" class="hover-accent transition-colors">← Previous</a>
+                {{ else }}
+                    <span class="text-zinc-300">← Previous</span>
+                {{ /if }}
+                <div class="flex gap-3">
+                    {{ range :from="1" :to="total_pages" }}
+                        {{ if value == 1 || value == total_pages || (value >= (current_page - 1) && value <= (current_page + 1)) }}
+                            {{ if value == current_page }}
+                                <span class="font-bold text-black">{{ value }}</span>
+                            {{ else }}
+                                <a href="?page={{ value }}" class="text-zinc-400 hover-accent transition-colors">{{ value }}</a>
+                            {{ /if }}
+                        {{ elseif value == 2 && current_page > 3 }}
+                            <span class="text-zinc-300">…</span>
+                        {{ elseif value == (total_pages - 1) && current_page < (total_pages - 2) }}
+                            <span class="text-zinc-300">…</span>
+                        {{ /if }}
+                    {{ /range }}
+                </div>
+                {{ if next_page }}
+                    <a href="{{ next_page }}" class="hover-accent transition-colors">Next →</a>
+                {{ else }}
+                    <span class="text-zinc-300">Next →</span>
+                {{ /if }}
+            </nav>
+        {{ /if }}
+    {{ /paginate }}
+    {{ /collection:articles }}
+
+    {{ collection:ads filter="active:true" limit="1" offset="1" as="has_more_ads" }}
+        {{ has_more_ads }}
+            {{ if (!start_date || start_date <= now) && (!end_date || end_date >= now) }}
+                <hr class="w-full mx-auto mt-2 mb-2 border-gray-100 border-1" />
+                <div class="mx-auto mb-2 text-center">
+                    <span class="w-full font-mono text-xs text-center text-bold text-zinc-700">MORE ADS</span>
+                </div>
+                {{ partial:ads offset="1" }}
+            {{ /if }}
+        {{ /has_more_ads }}
+    {{ /collection:ads }}
+</div>

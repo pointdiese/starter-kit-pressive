@@ -1,0 +1,95 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{ partial:page-header }}
+
+    <div class="max-w-2xl mx-auto w-full">
+
+        {{# Optional intro text from page content field #}}
+        {{ if content }}
+            <div class="font-serif text-xl italic text-zinc-600 text-center mb-8">{{ content }}</div>
+        {{ /if }}
+
+        {{# Statamic form tag — handles CSRF, validation, and submission; config in /resources/forms/contact.yaml #}}
+        {{ form:contact }}
+
+            {{# Success state — shown after successful submission #}}
+            {{ if success }}
+                <div class="flex flex-col items-center gap-3 py-12 text-center">
+                    <p class="font-display text-6xl uppercase tracking-wide">👍</p>
+                    <p class="font-serif text-xl italic text-zinc-500">We'll get back to you. Eventually. Probably.</p>
+                </div>
+            {{ else }}
+
+                {{# Validation errors — displayed above the form as a grouped list #}}
+                {{ if errors }}
+                    <div class="mb-6 border border-red-200 bg-red-50 px-4 py-3 font-mono text-sm text-red-700">
+                        {{ errors }}
+                            <div>{{ value }}</div>
+                        {{ /errors }}
+                    </div>
+                {{ /if }}
+
+                <div class="flex flex-col gap-6">
+                    <div class="relative">
+                        <label for="name" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-zinc-500">Name</label>
+                        <input
+                            type="text"
+                            name="name"
+                            id="name"
+                            value="{{ old:name }}"
+                            placeholder="Your name"
+                            class="w-full border-b-2 border-zinc-200 bg-transparent px-0 py-2 font-sans text-lg text-zinc-900 placeholder-zinc-300 outline-none transition-all duration-300 focus:border-zinc-900"
+                        >
+                        {{ if error:name }}
+                            <span class="mt-1 block font-mono text-xs text-red-500">{{ error:name }}</span>
+                        {{ /if }}
+                    </div>
+
+                    <div class="relative">
+                        <label for="email" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-zinc-500">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            value="{{ old:email }}"
+                            placeholder="your@email.com"
+                            class="w-full border-b-2 border-zinc-200 bg-transparent px-0 py-2 font-sans text-lg text-zinc-900 placeholder-zinc-300 outline-none transition-all duration-300 focus:border-zinc-900"
+                        >
+                        {{ if error:email }}
+                            <span class="mt-1 block font-mono text-xs text-red-500">{{ error:email }}</span>
+                        {{ /if }}
+                    </div>
+
+                    <div class="relative">
+                        <label for="message" class="mb-1.5 block font-mono text-xs uppercase tracking-widest text-zinc-500">Message</label>
+                        <textarea
+                            name="message"
+                            id="message"
+                            rows="5"
+                            placeholder="Tell us something..."
+                            class="w-full resize-none border-b-2 border-zinc-200 bg-transparent px-0 py-2 font-sans text-lg text-zinc-900 placeholder-zinc-300 outline-none transition-all duration-300 focus:border-zinc-900"
+                        >{{ old:message }}</textarea>
+                        {{ if error:message }}
+                            <span class="mt-1 block font-mono text-xs text-red-500">{{ error:message }}</span>
+                        {{ /if }}
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button
+                            type="submit"
+                            class="group flex items-center gap-2 font-mono text-sm uppercase tracking-widest text-zinc-900 hover-accent transition-colors duration-200"
+                        >
+                            <span class="border-b border-transparent group-hover:border-current transition-all duration-200">Send</span>
+                            <span class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+                        </button>
+                    </div>
+                </div>
+
+            {{ /if }}
+
+        {{ /form:contact }}
+    </div>
+
+</div>

@@ -1,0 +1,130 @@
+<div class="flex flex-col max-w-5xl mx-auto">
+
+    {{# Article header #}}
+    <div class="py-5 mx-auto w-full max-w-prose">
+        {{ categories }}
+            <a href="/{{ slug }}" class="font-display text-xl uppercase">{{ title }}</a>
+        {{ /categories }}
+        <h1 class="font-serif text-5xl font-semibold leading-tight mt-2">{{ title }}</h1>
+        {{ if dek }}
+            <p class="mt-3 font-serif text-xl italic font-semibold text-zinc-600">{{ dek }}</p>
+        {{ /if }}
+        <div class="flex flex-row items-center gap-2 mt-4 font-mono text-xs text-zinc-500">
+            {{ author }}
+                <a href="{{ url }}" class="hover:text-accent transition-colors">{{ title }}</a>
+                <div class="block h-3 w-[1px] bg-zinc-300"></div>
+            {{ /author }}
+            <span>{{ date iso_format="MMMM D, YYYY" }}</span>
+            {{ if content_blocks }}
+                <div class="block h-3 w-[1px] bg-zinc-300"></div>
+                <span>{{ content_blocks | reading_time }} min read</span>
+            {{ /if }}
+        </div>
+    </div>
+
+    {{# Featured image #}}
+    {{ if featured_image }}
+    <div class="w-full">
+        <div class="overflow-hidden">
+            {{ glide :src="featured_image" w="1280" q="100" }}
+                <img src="{{ url }}" width="{{ width }}" height="{{ height }}" alt="{{ alt }}" class="w-full">
+            {{ /glide }}
+        </div>
+        <div class="flex flex-row items-center justify-between py-2 w-full">
+            {{ partial:share }}
+            {{ if image_credit }}
+                <div class="flex flex-row items-center gap-1 font-mono text-xs text-zinc-400">
+                    <span>Image Credit</span>
+                    <div class="block h-3 w-[1px] bg-zinc-300"></div>
+                    <span>{{ if image_credit_url }}<a href="{{ image_credit_url }}" target="_blank">{{ image_credit }}</a>{{ else }}{{ image_credit }}{{ /if }}</span>
+                </div>
+            {{ /if }}
+        </div>
+    </div>
+    {{ else }}
+    <div class="max-w-prose mx-auto w-full">{{ partial:share }}</div>
+    {{ /if }}
+
+    {{# Article content blocks #}}
+    <div class="max-w-prose mx-auto w-full py-5">
+        {{ city_rendered = false }}
+        {{ content_blocks }}
+
+            {{ if type == "text_block" }}
+                {{ if article_city && city_rendered == false }}
+                    {{ city_rendered = true }}
+                    <div class="font-serif text-2xl font-medium [&>p]:pb-5 [&>p:first-of-type]:inline [&>p:first-of-type]:pb-0">
+                        <span class="italic font-semibold">{{ article_city }}&nbsp;&mdash;&nbsp;</span>{{ content | markdown }}
+                    </div>
+                {{ else }}
+                    <div class="font-serif text-2xl font-medium [&>p]:pb-5">
+                        {{ content | markdown }}
+                    </div>
+                {{ /if }}
+
+            {{ elseif type == "image_block" }}
+                <figure class="flex flex-col py-4 gap-y-2">
+                    {{ if image }}
+                        {{ image }}
+                            {{ glide :src="path" width="1280" fit="crop" dpr="2" quality="80" }}
+                                {{ if link_url }}
+                                    <a href="{{ link_url }}" target="_blank" rel="noopener noreferrer">
+                                        <img src="{{ url }}" width="{{ width }}" height="{{ height }}" alt="{{ alt or subtitle }}" loading="lazy" class="w-full">
+                                    </a>
+                                {{ else }}
+                                    <img src="{{ url }}" width="{{ width }}" height="{{ height }}" alt="{{ alt or subtitle }}" loading="lazy" class="w-full">
+                                {{ /if }}
+                            {{ /glide }}
+                        {{ /image }}
+                    {{ /if }}
+                    {{ if subtitle or image_credit }}
+                        <figcaption class="flex flex-row justify-between font-mono text-xs text-zinc-400">
+                            <span>{{ subtitle }}</span>
+                            {{ if image_credit }}
+                                <span>{{ if image_credit_url }}<a href="{{ image_credit_url }}" target="_blank">{{ image_credit }}</a>{{ else }}{{ image_credit }}{{ /if }}</span>
+                            {{ /if }}
+                        </figcaption>
+                    {{ /if }}
+                </figure>
+
+
+            {{ elseif type == "ad_block" }}
+                <hr class="mx-auto w-full border-gray-100 mb-2 border-1" />
+                {{ if ad }}
+                    {{ ad }}
+                        {{ if active }}
+                        <div class="py-2">
+                            <div class="overflow-hidden flex justify-center">
+                                <a href="{{ url ?? '/donate' }}" target="{{ if url }}_blank{{ else }}_self{{ /if }}" rel="noopener">
+                                    {{ glide :src="image" w="970" h="250" fit="crop" q="95" }}
+                                        <img loading="lazy" class="transform transition-transform duration-500 ease-in-out hover:scale-105" src="{{ url }}" width="970" height="250" alt="{{ title }}" />
+                                    {{ /glide }}
+                                </a>
+                            </div>
+                        </div>
+                        <hr class="mx-auto w-full border-gray-100 mb-2 border-1" />
+                        {{ /if }}
+                    {{ /ad }}
+                {{ else }}
+                    {{ partial:ads offset="0" }}
+                {{ /if }}
+
+            {{ /if }}
+
+        {{ /content_blocks }}
+    </div>
+
+    {{# More in category #}}
+    {{ article_id = id }}
+    {{ categories }}
+        {{ collection:articles :taxonomy:categories="slug" sort="date:desc" limit="3" :id:not="article_id" as="cat_articles" }}
+            {{ if cat_articles }}
+            <div class="max-w-prose mx-auto w-full mt-8 pt-8 border-t border-gray-100">
+                {{ partial:article-list :articles="cat_articles" label_prefix="MORE IN " :label_name="title" }}
+            </div>
+            {{ /if }}
+        {{ /collection:articles }}
+    {{ /categories }}
+
+
+</div>

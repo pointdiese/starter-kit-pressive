@@ -1,0 +1,22 @@
+{{ partial:logo }}
+
+{{# Alpine.js picks a random satirical message from the array on page load (x-init) #}}
+{{# To add or change messages, edit the array below — no JS file needed #}}
+<div
+    x-data="{
+        messages: [
+            'This page has been cancelled due to budget cuts.',
+            'Our journalists investigated this URL and found nothing. They filed a report anyway.',
+            'This page was here briefly, then quietly walked back its earlier statements.',
+            'A senior official confirmed this page does not exist, then denied confirming it.',
+            'This page has been moved to a committee for further review.',
+            'Experts say this page may never have existed. More on this story as it develops.'
+        ],
+        message: ''
+    }"
+    x-init="message = messages[Math.floor(Math.random() * messages.length)]"
+    class="flex flex-col items-center justify-center py-20 gap-4">
+    <h1 class="font-display text-9xl uppercase tracking-wide">404</h1>
+    <p class="font-serif text-2xl italic text-zinc-600" x-text="message"></p>
+    <a href="/" class="font-mono text-xs uppercase tracking-widest hover-accent transition-colors mt-4">← Back to the news</a>
+</div>

@@ -1,0 +1,7 @@
+title: 'Site Settings'
+logo: img/logo.png
+sharing:
+  share_facebook: true
+  share_x: true
+  share_bluesky: true
+  share_threads: true

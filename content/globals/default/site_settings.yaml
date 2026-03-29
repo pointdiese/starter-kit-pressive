@@ -1,0 +1,58 @@
+logo: img/logo.png
+logo_max_width: 400
+accent_color: '#CD0A12'
+show_masthead_rules: false
+site_description: 'A very serious journal dedicated to shocking topics, humanitarian crises, existential crises, and midlife crises. (Definitely not real news.)'
+show_progress_bar: true
+progress_bar_color: '#CD0A12'
+sharing:
+  share_facebook: true
+  share_x: true
+  share_bluesky: true
+  share_threads: true
+  share_whatsapp: true
+  share_linkedin: true
+show_marquee: true
+marquee_items:
+  -
+    id: mrq-brk1
+    text: BREAKING
+  -
+    id: MEovVNmVY2l2Hf3rjj1-3
+    text: 'Why You Should Let Your Kids Play Outside Past 11PM'
+    link: 'entry::f09f4830-f966-499f-b608-a05e0cc8e90d'
+  -
+    id: mrq-ltd1
+    text: 'Limited Edition of Our Cheap Made In Overseas Merchandise Available In Our Store'
+  -
+    id: mrq-doc1
+    text: 'Doctors Say Screaming Into the Void Burns 12 Calories a Minute'
+  -
+    id: mrq-ai01
+    text: "New AI Tool Can Now Experience Regret So You Don't Have To"
+  -
+    id: mrq-rdg1
+    text: 'Are You Still Reading This?'
+  -
+    id: mrq-hlp1
+    text: "Please Help I'm Forced to Write 19 Hours a Day"
+  -
+    id: mrq-pee1
+    text: "Send Help. Actually Don't. The Deadline Is in 10 Minutes."
+  -
+    id: mrq-ac01
+    text: 'At Least There Is AC Here'
+  -
+    id: mrq-frd1
+    text: "Fun Fact: You Can't Get Fired If You Never Leave"
+  -
+    id: mrq-don1
+    text: "Donations Go Directly Into The Owner's Pocket"
+footer_tagline: 'Not real news. But real fake news.'
+social_links:
+  x_url: 'https://x.com/thepressive'
+  bluesky_url: 'https://bsky.app/profile/thepressive.com'
+  facebook_url: 'https://facebook.com/thepressive'
+  instagram_url: 'https://instagram.com/thepressivecom'
+  youtube_url: 'https://youtube.com/@thepressive'
+  threads_url: 'https://threads.com/thepressivecom'

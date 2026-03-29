@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+[x-cloak] { display: none !important; }
+@plugin "@tailwindcss/typography";
+@source "../views";
+@source "../../content";
+
+/* =====================
+   Font families (Tailwind 4 theme)
+   ===================== */
+@theme {
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular;
+  --font-sans: 'Switzer', ui-sans-serif, system-ui;
+}
+
+/* City alignment in article */
+article > span:first-of-type {
+  float: left;
+}
+
+/* Marquee News Banner */
+.marquee {
+  animation: scrolling var(--marquee-time) linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes scrolling {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-1 * var(--marquee-width))); }
+}
+
+/* Reading progress bar */
+#progress-bar-desktop {
+  --scrollAmount: 0%;
+  width: var(--scrollAmount);
+}

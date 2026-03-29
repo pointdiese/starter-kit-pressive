@@ -1,0 +1,108 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{# Category header #}}
+    {{ partial:page-header }}
+
+    {{ if !get:page }}
+
+        {{# Featured article — full-width hero #}}
+        {{ collection:articles taxonomy:categories="{slug}" limit="1" as="featured" }}
+        {{ featured }}
+            <div class="mb-6">
+                <div class="overflow-hidden bg-black">
+                    <a href="{{ url }}">
+                        {{ glide :src="featured_image" quality="80" height="620" }}
+                            <img
+                                class="transition-transform duration-500 ease-in-out transform hover:scale-120 w-full"
+                                loading="lazy"
+                                src="{{ url }}"
+                                width="{{ width }}"
+                                height="{{ height }}"
+                                alt="{{ alt }}">
+                        {{ /glide }}
+                    </a>
+                </div>
+                <div class="flex flex-col gap-1 py-4">
+                    <a class="flex flex-col gap-2" href="{{ url }}">
+                        <span class="font-mono text-xs text-accent">COVER STORY</span>
+                        <h2 class="font-serif text-5xl font-bold leading-tight">{{ title }}</h2>
+                        {{ if dek }}
+                            <p class="font-serif text-2xl italic font-semibold tracking-wide text-zinc-600">{{ dek }}</p>
+                        {{ /if }}
+                    </a>
+                </div>
+            </div>
+        {{ /featured }}
+        {{ /collection:articles }}
+
+        <hr class="w-full border-gray-200 border-1 mb-6" />
+
+    {{ /if }}
+
+    {{# Editorial list — paginated #}}
+    <div class="max-w-3xl mx-auto">
+    {{ collection:articles taxonomy:categories="{slug}" offset="1" paginate="15" as="articles" }}
+        {{ articles }}
+            <article class="flex flex-row items-start gap-5 py-5">
+                <div class="w-60 shrink-0 overflow-hidden bg-black">
+                    <a href="{{ url }}" class="block">
+                        {{ glide :src="featured_image" quality="80" width="280" height="180" fit="crop" }}
+                            <img
+                                class="w-72 h-44 object-cover transition-transform duration-500 ease-in-out transform hover:scale-120"
+                                loading="lazy"
+                                src="{{ url }}"
+                                alt="{{ alt }}">
+                        {{ /glide }}
+                    </a>
+                </div>
+                <a href="{{ url }}" class="flex flex-col justify-start gap-2 w-3/5">
+                    <div class="font-mono text-xs text-zinc-500">
+                        <span>{{ date iso_format="MMMM D, YYYY" }}</span>
+                    </div>
+                    <h2 class="font-serif text-2xl lg:text-3xl font-bold leading-tight transition-colors duration-200">{{ title }}</h2>
+                    {{ if dek }}
+                        <p class="font-serif text-base italic font-semibold text-zinc-600 leading-snug">{{ dek }}</p>
+                    {{ /if }}
+                </a>
+            </article>
+            {{ if !last }}
+                <hr class="w-full border-gray-100 border-1" />
+            {{ /if }}
+        {{ /articles }}
+        {{ paginate }}
+            {{ if total_pages > 1 }}
+                <nav class="flex items-center justify-between py-8 font-mono text-sm">
+                    {{ if prev_page }}
+                        <a href="{{ prev_page }}" class="hover:text-accent transition-colors">← Previous</a>
+                    {{ else }}
+                        <span class="text-zinc-300">← Previous</span>
+                    {{ /if }}
+                    <div class="flex gap-3">
+                        {{ range :from="1" :to="total_pages" }}
+                            {{ if value == 1 || value == total_pages || (value >= (current_page - 1) && value <= (current_page + 1)) }}
+                                {{ if value == current_page }}
+                                    <span class="font-bold text-black">{{ value }}</span>
+                                {{ else }}
+                                    <a href="?page={{ value }}" class="text-zinc-400 hover:text-accent transition-colors">{{ value }}</a>
+                                {{ /if }}
+                            {{ elseif value == 2 && current_page > 3 }}
+                                <span class="text-zinc-300">…</span>
+                            {{ elseif value == (total_pages - 1) && current_page < (total_pages - 2) }}
+                                <span class="text-zinc-300">…</span>
+                            {{ /if }}
+                        {{ /range }}
+                    </div>
+                    {{ if next_page }}
+                        <a href="{{ next_page }}" class="hover:text-accent transition-colors">Next →</a>
+                    {{ else }}
+                        <span class="text-zinc-300">Next →</span>
+                    {{ /if }}
+                </nav>
+            {{ /if }}
+        {{ /paginate }}
+    {{ /collection:articles }}
+    </div>
+
+</div>

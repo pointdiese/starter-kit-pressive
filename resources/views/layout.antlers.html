@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="{{ site:short_locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {{# Canonical URL + RSS alternate links (per-category feed injected when on a category page) #}}
+        <link rel="canonical" href="{{ permalink }}" />
+        <link rel="alternate" type="application/rss+xml" title="{{ site:name }}" href="{{ config:app.url }}/feed.xml" />
+        {{ if term }}<link rel="alternate" type="application/rss+xml" title="{{ site:name }} — {{ term | replace('-', ' ') | title }}" href="{{ config:app.url }}/{{ term }}/feed.xml" />{{ /if }}
+
+        {{# Favicon — replace files in public/ to customize #}}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png">
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+        <link rel="icon" href="/favicon.ico" sizes="any">
+
+        {{# Robots — noindex if robot_index is false on the entry, or on paginated pages #}}
+        {{ if robot_index == false }}
+            <meta name="robots" content="noindex, nofollow" />
+        {{ elseif get:page }}
+            <meta name="robots" content="noindex, follow" />
+        {{ /if }}
+
+        {{# OpenGraph — fallback chain: meta_title → title → site name; logo as og:image if no featured image #}}
+        <meta property="og:url" content="{{ permalink }}" />
+        <meta property="og:site_name" content="{{ site:name }}" />
+        <meta property="og:locale" content="{{ site:short_locale }}" />
+        <meta property="og:type" content="{{ if collection }}article{{ else }}website{{ /if }}" />
+        <meta property="og:title" content="{{ meta_title | strip_tags ?? title | strip_tags('sup') ?? site:name | strip_tags }}" />
+        <meta property="og:description" content="{{ meta_description | strip_tags('sup') ?? site_settings:site_description }}" />
+        {{ if featured_image }}
+            <meta property="og:image" content="{{ glide :src='featured_image' width='1200' height='630' fit='crop' absolute='true' }}" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
+        {{ else }}
+            <meta property="og:image" content="{{ config:app.url }}/assets/{{ site_settings:logo }}" />
+        {{ /if }}
+
+        {{# Twitter Card — summary_large_image when a featured image is present #}}
+        <meta name="twitter:card" content="{{ if featured_image }}summary_large_image{{ else }}summary{{ /if }}" />
+        <meta name="twitter:title" content="{{ meta_title | strip_tags ?? title | strip_tags('sup') ?? site:name | strip_tags }}" />
+        <meta name="twitter:description" content="{{ meta_description | strip_tags('sup') ?? site_settings:site_description }}" />
+        {{ if featured_image }}
+            <meta name="twitter:image" content="{{ glide :src='featured_image' width='1200' height='630' fit='crop' absolute='true' }}" />
+        {{ /if }}
+
+        {{# Meta description + page title — same fallback chain as OG #}}
+        <meta name="description" content="{{ meta_description | strip_tags('sup') ?? site_settings:site_description }}" />
+        <title>{{ meta_title | strip_tags ?? title | strip_tags ?? term | replace('-', ' ') | title }} | {{ site:name }}</title>
+
+        {{# JSON-LD schema (NewsArticle) — only injected on article pages, see partials/schema #}}
+        {{ partial:schema }}
+
+        {{# Fonts — served as static assets, bypasses Vite to avoid build-time resolution warnings #}}
+        <link rel="stylesheet" href="/css/fonts.css">
+
+        {{# Preload critical fonts to prevent FOUT #}}
+        <link rel="preload" href="/fonts/bebas/BebasNeue-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/fonts/cormorant/CormorantGaramond-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/fonts/cormorant/CormorantGaramond-Bold.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/fonts/switzer/Switzer-Regular.woff2" as="font" type="font/woff2" crossorigin>
+
+        {{# Vite-compiled JS + CSS assets #}}
+        {{ vite src="resources/js/site.js|resources/css/site.css" }}
+
+        {{# Accent color CSS variable — set from site_settings, used via .text-accent and .hover-accent classes #}}
+        <style>:root { --accent: {{ site_settings:accent_color ?? '#ef4444' }}; } .text-accent { color: var(--accent); } .hover-accent:hover { color: var(--accent); } a { transition: color 200ms; } a:hover { color: var(--accent); } .marquee-bar a:hover { color: white; }</style>
+    </head>
+    <body class="bg-white">
+        {{# Optional scrolling marquee bar — toggle in site_settings #}}
+        {{ if {site_settings:show_marquee} }}{{ partial:marquee }}{{ /if }}
+
+        {{# Sticky navigation — desktop + mobile, see partials/nav #}}
+        {{ partial:nav }}
+
+        {{# Main content area — max-width capped at 80vw on xl screens #}}
+        <div class="items-left mx-auto flex max-w-7xl flex-col p-3 xl:w-[80vw] lg:px-0">
+            {{ template_content }}
+        </div>
+
+        {{ partial:footer }}
+        {{ partial:scripts }}
+    </body>
+</html>

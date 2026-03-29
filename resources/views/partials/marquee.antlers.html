@@ -1,0 +1,14 @@
+{{# Scrolling marquee bar — uses the Alpine.js Marquee component (resources/js/site.js) #}}
+{{# Items and visibility are managed in site_settings globals; each item can link to an article or custom URL #}}
+<div class="marquee-bar overflow-hidden max-w-full mx-auto py-2 bg-black font-mono">
+    <div class="marquee py-1 text-xs inline-flex space-x-1 text-white whitespace-nowrap max-w-full" x-data="Marquee({ speed: 0.5, spaceX: 4 })">
+        {{ site_settings:marquee_items }}
+            {{ if link }}
+                <a href="{{ link }}" class="hover:underline">{{ text }}</a>
+            {{ else }}
+                <span>{{ text }}</span>
+            {{ /if }}
+            <span class="text-zinc-500">|</span>
+        {{ /site_settings:marquee_items }}
+    </div>
+</div>

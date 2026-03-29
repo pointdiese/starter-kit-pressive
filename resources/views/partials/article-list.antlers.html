@@ -1,0 +1,33 @@
+{{# article-list partial
+    params:
+      - articles     : collection of articles to display
+      - label_prefix : static label prefix e.g. "MORE FROM " (optional)
+      - label_name   : dynamic label suffix e.g. author or category title (optional)
+#}}
+{{ if label_prefix }}
+<p class="font-mono text-xs text-zinc-500 uppercase tracking-wide mb-4">{{ label_prefix }}{{ label_name }}</p>
+{{ /if }}
+<div class="flex flex-col divide-y divide-gray-100">
+    {{ articles }}
+    <a href="{{ url }}" class="flex flex-col gap-3 py-5 group">
+        {{ if featured_image }}
+        <div class="w-full overflow-hidden">
+            {{ glide :src="featured_image" width="800" height="420" fit="crop" quality="80" }}
+                <img
+                    src="{{ url }}"
+                    width="800"
+                    height="420"
+                    alt="{{ alt }}"
+                    class="w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+                    loading="lazy">
+            {{ /glide }}
+        </div>
+        {{ /if }}
+        <span class="font-mono text-xs text-zinc-400">{{ date iso_format="MMMM D, YYYY" }}</span>
+        <h3 class="font-serif text-xl font-bold leading-snug">{{ title }}</h3>
+        {{ if dek }}
+            <p class="font-serif text-sm italic text-zinc-600">{{ dek }}</p>
+        {{ /if }}
+    </a>
+    {{ /articles }}
+</div>

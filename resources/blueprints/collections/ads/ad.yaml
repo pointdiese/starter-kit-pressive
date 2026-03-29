@@ -1,0 +1,47 @@
+title: Ad
+fields:
+  -
+    handle: title
+    field:
+      type: text
+      display: 'Name'
+      instructions: 'Internal name for this ad. Not shown publicly.'
+      required: true
+      validate:
+        - required
+  -
+    handle: image
+    field:
+      type: assets
+      display: Image
+      instructions: 'Ad image (recommended: 970×250px).'
+      container: assets
+      max_files: 1
+      required: true
+  -
+    handle: link
+    field:
+      type: text
+      display: 'Destination URL'
+      instructions: 'URL the ad links to. Leave empty to make the image non-clickable.'
+  -
+    handle: active
+    field:
+      type: toggle
+      display: Active
+      instructions: 'Uncheck to disable this ad without deleting it.'
+      default: true
+  -
+    handle: start_date
+    field:
+      type: date
+      display: 'Start Date'
+      instructions: 'Optional. Ad will not show before this date.'
+      required: false
+  -
+    handle: end_date
+    field:
+      type: date
+      display: 'End Date'
+      instructions: 'Optional. Ad will not show after this date.'
+      required: false

@@ -1,0 +1,30 @@
+updatable: false
+export_paths:
+  - content
+  - config/filesystems.php
+  - config/statamic/assets.php
+  - config/statamic/search.php
+  - config/statamic/static_caching.php
+  - app/Modifiers
+  - routes/web.php
+  - resources/blueprints
+  - resources/fieldsets
+  - resources/forms
+  - resources/css
+  - resources/js
+  - resources/views
+  - resources/sites.yaml
+  - public/css
+  - public/fonts
+  - public/assets
+  - public/favicon.svg
+  - public/favicon.ico
+  - public/favicon-16x16.png
+  - public/favicon-32x32.png
+  - public/apple-touch-icon.png
+  - public/android-chrome-192x192.png
+  - public/android-chrome-512x512.png
+  - public/site.webmanifest
+  - package.json
+  - vite.config.js
+  - README.md

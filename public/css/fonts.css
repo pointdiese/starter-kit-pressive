@@ -1,0 +1,110 @@
+/* =====================
+   Bebas Neue
+   ===================== */
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/bebas/BebasNeue-Regular.woff2') format('woff2'),
+       url('/fonts/bebas/BebasNeue-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+/* =====================
+   Cormorant Garamond
+   ===================== */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant/CormorantGaramond-Regular.woff2') format('woff2'),
+       url('/fonts/cormorant/CormorantGaramond-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant/CormorantGaramond-Italic.woff2') format('woff2'),
+       url('/fonts/cormorant/CormorantGaramond-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant/CormorantGaramond-Bold.woff2') format('woff2'),
+       url('/fonts/cormorant/CormorantGaramond-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Cormorant Garamond';
+  src: url('/fonts/cormorant/CormorantGaramond-BoldItalic.woff2') format('woff2'),
+       url('/fonts/cormorant/CormorantGaramond-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}
+
+/* =====================
+   JetBrains Mono
+   ===================== */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains/JetBrainsMono-Light.woff2') format('woff2'),
+       url('/fonts/jetbrains/JetBrainsMono-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains/JetBrainsMono-Medium.woff2') format('woff2'),
+       url('/fonts/jetbrains/JetBrainsMono-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+/* =====================
+   Switzer
+   ===================== */
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer/Switzer-Regular.woff2') format('woff2'),
+       url('/fonts/switzer/Switzer-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer/Switzer-Italic.woff2') format('woff2'),
+       url('/fonts/switzer/Switzer-Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer/Switzer-Bold.woff2') format('woff2'),
+       url('/fonts/switzer/Switzer-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Switzer';
+  src: url('/fonts/switzer/Switzer-BoldItalic.woff2') format('woff2'),
+       url('/fonts/switzer/Switzer-BoldItalic.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+  font-display: block;
+}

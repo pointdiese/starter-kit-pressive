@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>{{ site:name }}{{ if category_title }} — {{ category_title }}{{ /if }}</title>
+        <link>{{ config:app.url }}</link>
+        <description>{{ site_settings:site_description }}</description>
+        <language>{{ site:short_locale }}</language>
+        <atom:link href="{{ config:app.url }}{{ feed_url }}" rel="self" type="application/rss+xml" />
+        <lastBuildDate>{{ now format="D, d M Y H:i:s O" }}</lastBuildDate>
+
+        {{# Per-category feed — feed_category is injected via the dynamic route in routes/web.php #}}
+        {{ if feed_category }}
+            {{ collection:articles :taxonomy:categories="feed_category" sort="date:desc" limit="20" }}
+                <item>
+                    <title><![CDATA[{{ title }}]]></title>
+                    <link>{{ permalink }}</link>
+                    <guid isPermaLink="true">{{ permalink }}</guid>
+                    <pubDate>{{ date format="D, d M Y H:i:s O" }}</pubDate>
+                    {{ categories }}<category><![CDATA[{{ title }}]]></category>{{ /categories }}
+                    {{ if dek }}<description><![CDATA[{{ dek }}]]></description>{{ /if }}
+                </item>
+            {{ /collection:articles }}
+        {{# Global feed — all articles across all categories, most recent 20 #}}
+        {{ else }}
+            {{ collection:articles sort="date:desc" limit="20" }}
+                <item>
+                    <title><![CDATA[{{ title }}]]></title>
+                    <link>{{ permalink }}</link>
+                    <guid isPermaLink="true">{{ permalink }}</guid>
+                    <pubDate>{{ date format="D, d M Y H:i:s O" }}</pubDate>
+                    {{ categories }}<category><![CDATA[{{ title }}]]></category>{{ /categories }}
+                    {{ if dek }}<description><![CDATA[{{ dek }}]]></description>{{ /if }}
+                </item>
+            {{ /collection:articles }}
+        {{ /if }}
+
+    </channel>
+</rss>

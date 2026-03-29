@@ -1,0 +1,114 @@
+{{ partial:logo }}
+
+<div class="px-0 lg:px-2">
+
+    {{# Author header #}}
+    <div class="max-w-3xl mx-auto mb-8">
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-row items-center gap-6">
+            {{ if photo }}
+            <div class="w-24 h-24 shrink-0 overflow-hidden rounded-full bg-zinc-100">
+                {{ glide :src="photo" width="192" height="192" fit="crop" quality="90" dpr="2" }}
+                    <img
+                        class="w-24 h-24 object-cover"
+                        src="{{ url }}"
+                        alt="{{ title }}">
+                {{ /glide }}
+            </div>
+            {{ else }}
+            <div class="w-24 h-24 shrink-0 overflow-hidden rounded-full bg-zinc-100 flex items-center justify-center">
+                <span class="font-display text-3xl text-zinc-400 uppercase">{{ title | truncate:1:''}}</span>
+            </div>
+            {{ /if }}
+            <div class="flex flex-col gap-2">
+                <h1 class="font-serif text-4xl font-bold leading-tight">{{ title }}</h1>
+                {{ if social_links }}
+                    <div class="flex flex-row flex-wrap gap-3 mt-1">
+                        {{ social_links }}
+                            {{ if x_url }}
+                            <a href="{{ x_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" viewBox="0 0 24 24" class="transition-colors duration-300 hover:fill-zinc-500"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if bluesky_url }}
+                            <a href="{{ bluesky_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" viewBox="0 0 600 530" class="transition-colors duration-300 hover:fill-sky-500"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if facebook_url }}
+                            <a href="{{ facebook_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" fill="#000" viewBox="0 0 50 50" class="transition-colors duration-300 hover:fill-blue-600"><path d="M32,11h5c0.552,0,1-0.448,1-1V3.263c0-0.524-0.403-0.96-0.925-0.997C35.484,2.153,32.376,2,30.141,2C24,2,20,5.68,20,12.368 V19h-7c-0.552,0-1,0.448-1,1v7c0,0.552,0.448,1,1,1h7v19c0,0.552,0.448,1,1,1h7c0.552,0,1-0.448,1-1V28h7.222 c0.51,0,0.938-0.383,0.994-0.89l0.778-7C38.06,19.518,37.596,19,37,19h-8v-5C29,12.343,30.343,11,32,11z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if instagram_url }}
+                            <a href="{{ instagram_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" viewBox="0 0 24 24" class="transition-colors duration-300 hover:fill-pink-500"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if youtube_url }}
+                            <a href="{{ youtube_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" viewBox="0 0 24 24" class="transition-colors duration-300 hover:fill-red-600"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if threads_url }}
+                            <a href="{{ threads_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#000" viewBox="0 0 192 192" class="transition-colors duration-300 hover:fill-neutral-500"><path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.405C133.559 125.787 136.834 117.139 138.28 106.258C144.236 109.935 148.617 114.98 150.784 121.019C154.009 130.193 154.339 145.006 142.097 157.22C131.328 167.96 118.294 172.653 97.9666 172.818C75.2197 172.633 57.9586 165.422 46.8675 151.404C36.4937 138.283 31.1341 119.215 30.9352 95.2171C31.1341 71.2192 36.4937 52.1514 46.8675 39.0308C57.9586 25.0131 75.2197 17.8019 97.9666 17.6174C120.861 17.8031 138.253 25.0526 149.381 39.1246C154.858 46.0575 158.988 54.9546 161.706 65.4262L178.149 61.2C174.879 48.3753 169.657 37.3253 162.494 28.0914C148.138 9.74399 127.12 0.396438 97.9894 0.175781H97.9666C68.8954 0.396251 47.9416 9.77495 33.6343 28.1619C20.9282 44.498 14.3898 67.3898 14.1686 95.1128L14.1665 95.2171L14.1686 95.3213C14.3898 123.044 20.9282 145.936 33.6343 162.272C47.9416 180.659 68.8954 190.038 97.9666 190.258H97.9894C123.842 190.063 142.358 183.055 155.962 169.266C173.005 152.006 172.474 130.638 166.757 114.977C162.766 104.129 155.006 95.2044 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/></svg>
+                            </a>
+                            {{ /if }}
+                            {{ if website_url }}
+                            <a href="{{ website_url }}" target="_blank" rel="noopener">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" width="16" height="16" stroke="#000" class="transition-colors duration-300 hover:stroke-accent"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+                            </a>
+                            {{ /if }}
+                        {{ /social_links }}
+                    </div>
+                {{ /if }}
+            </div>
+            </div>
+            {{ if bio }}
+                <p class="font-serif text-lg italic text-zinc-600 leading-snug whitespace-pre-line">{{ bio }}</p>
+            {{ /if }}
+        </div>
+    </div>
+
+    <hr class="w-full border-gray-200 border-1 mb-6" />
+
+    {{# Articles by this author #}}
+    <div class="max-w-3xl mx-auto">
+        {{ collection:articles :author:contains="id" sort="date:desc" paginate="3" as="articles" }}
+            {{ partial:article-list :articles="articles" label_prefix="WRITTEN BY " :label_name="title" }}
+            {{ paginate }}
+                {{ if total_pages > 1 }}
+                    <nav class="flex items-center justify-between py-8 font-mono text-sm">
+                        {{ if prev_page }}
+                            <a href="{{ prev_page }}" class="hover:text-accent transition-colors">← Previous</a>
+                        {{ else }}
+                            <span class="text-zinc-300">← Previous</span>
+                        {{ /if }}
+                        <div class="flex gap-3">
+                            {{ range :from="1" :to="total_pages" }}
+                                {{ if value == 1 || value == total_pages || (value >= (current_page - 1) && value <= (current_page + 1)) }}
+                                    {{ if value == current_page }}
+                                        <span class="font-bold text-black">{{ value }}</span>
+                                    {{ else }}
+                                        <a href="?page={{ value }}" class="text-zinc-400 hover:text-accent transition-colors">{{ value }}</a>
+                                    {{ /if }}
+                                {{ elseif value == 2 && current_page > 3 }}
+                                    <span class="text-zinc-300">…</span>
+                                {{ elseif value == (total_pages - 1) && current_page < (total_pages - 2) }}
+                                    <span class="text-zinc-300">…</span>
+                                {{ /if }}
+                            {{ /range }}
+                        </div>
+                        {{ if next_page }}
+                            <a href="{{ next_page }}" class="hover:text-accent transition-colors">Next →</a>
+                        {{ else }}
+                            <span class="text-zinc-300">Next →</span>
+                        {{ /if }}
+                    </nav>
+                {{ /if }}
+            {{ /paginate }}
+        {{ /collection:articles }}
+    </div>
+
+</div>

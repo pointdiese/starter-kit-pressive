@@ -1,0 +1,4 @@
+default:
+  name: 'The Pressive'
+  url: /
+  locale: '{{ config:app:locale }}'

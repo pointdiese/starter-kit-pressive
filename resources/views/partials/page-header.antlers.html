@@ -1,0 +1,7 @@
+{{# Page header — horizontal rules flanking the title, used on all interior pages except homepage #}}
+{{# Pass a custom title via {{ partial:page-header title="Custom Title" }}, otherwise falls back to {{ title }} #}}
+<div class="flex flex-row items-center gap-4 mb-6">
+    <hr class="border-black border-1 flex-grow" />
+    <h1 class="font-display text-5xl uppercase tracking-wide">{{ title }}</h1>
+    <hr class="border-black border-1 flex-grow" />
+</div>

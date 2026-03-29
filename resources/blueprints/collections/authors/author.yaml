@@ -1,0 +1,93 @@
+title: Author
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              display: Name
+              required: true
+              validate:
+                - required
+          -
+            handle: photo
+            field:
+              type: assets
+              display: Photo
+              container: assets
+              max_files: 1
+          -
+            handle: bio
+            field:
+              type: textarea
+              display: Bio
+          -
+            handle: social_links
+            field:
+              type: group
+              display: 'Social Links'
+              instructions: 'Leave empty to hide a link.'
+              fields:
+                -
+                  handle: x_url
+                  field:
+                    type: text
+                    display: 'X (Twitter)'
+                    input_type: url
+                    width: 50
+                -
+                  handle: bluesky_url
+                  field:
+                    type: text
+                    display: Bluesky
+                    input_type: url
+                    width: 50
+                -
+                  handle: facebook_url
+                  field:
+                    type: text
+                    display: Facebook
+                    input_type: url
+                    width: 50
+                -
+                  handle: instagram_url
+                  field:
+                    type: text
+                    display: Instagram
+                    input_type: url
+                    width: 50
+                -
+                  handle: youtube_url
+                  field:
+                    type: text
+                    display: YouTube
+                    input_type: url
+                    width: 50
+                -
+                  handle: threads_url
+                  field:
+                    type: text
+                    display: Threads
+                    input_type: url
+                    width: 50
+                -
+                  handle: website_url
+                  field:
+                    type: text
+                    display: Website
+                    input_type: url
+                    width: 50
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
