@@ -49,7 +49,7 @@
 
         {{# Meta description + page title — same fallback chain as OG #}}
         <meta name="description" content="{{ meta_description | strip_tags('sup') ?? site_settings:site_description }}" />
-        <title>{{ meta_title | strip_tags ?? title | strip_tags ?? term | replace('-', ' ') | title }} | {{ site:name }}</title>
+        <title>{{ meta_title | strip_tags ?? title | strip_tags ?? term | replace('-', ' ') | title ?? get:q }} | {{ site:name }}</title>
 
         {{# JSON-LD schema (NewsArticle) — only injected on article pages, see partials/schema #}}
         {{ partial:schema }}
